@@ -1,0 +1,7 @@
+.coverage
+*.egg-info
+*.egg
+*.pyc
+test.db
+build/
+dist/

@@ -1,0 +1,57 @@
+{
+  "name": "rangy",
+  "description": "A cross-browser DOM range and selection library",
+  "version": "1.3.0-alpha.20140921",
+  "author": {
+    "name": "Tim Down",
+    "email": "tim@timdown.co.uk",
+    "url": "http://timdown.co.uk/"
+  },
+  "keywords": [
+    "range",
+    "selection",
+    "caret",
+    "DOM"
+  ],
+  "homepage": "https://github.com/timdown/rangy",
+  "bugs": {
+    "url": "https://github.com/timdown/rangy/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/mit-license.php"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/timdown/rangy.git"
+  },
+  "main": "lib/rangy-core.js",
+  "directories": {
+    "lib": "./lib"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "gitHead": "6a3bbc5138da057267988bc93e27ffd49f10b692",
+  "_id": "rangy@1.3.0-alpha.20140921",
+  "scripts": {},
+  "_shasum": "dc833523ddc2debbe1b797f955700ad8595aa225",
+  "_from": "rangy@*",
+  "_npmVersion": "1.4.23",
+  "_npmUser": {
+    "name": "timdown",
+    "email": "tim@timdown.co.uk"
+  },
+  "maintainers": [
+    {
+      "name": "timdown",
+      "email": "tim@timdown.co.uk"
+    }
+  ],
+  "dist": {
+    "shasum": "dc833523ddc2debbe1b797f955700ad8595aa225",
+    "tarball": "http://registry.npmjs.org/rangy/-/rangy-1.3.0-alpha.20140921.tgz"
+  },
+  "_resolved": "https://registry.npmjs.org/rangy/-/rangy-1.3.0-alpha.20140921.tgz"
+}
