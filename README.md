@@ -32,8 +32,9 @@ Then visit:
 ## Issues
 
 - Image redactions do not work yet.
-- Testing, testing, testing
+- Final text is somehow doubled, copying text sucks
 - Final PDF pages are not cut off quite where they should be
+- Needs testing, testing, testing
 
 
 ## Credits
