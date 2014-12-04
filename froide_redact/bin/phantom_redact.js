@@ -13,6 +13,10 @@ page.viewportSize = { width: 600, height: 600 };
 page.paperSize = { format: 'A4', orientation: 'portrait', margin: '1cm' };
 page.zoomFactor = 1;
 
+page.onConsoleMessage = function(msg, lineNum, sourceId) {
+  console.log('CONSOLE: ' + msg + ' (from line #' + lineNum + ' in "' + sourceId + '")');
+};
+
 page.open(address, function (status) {
     if (status !== 'success') {
         console.log('Unable to load the address!');
@@ -38,9 +42,11 @@ page.open(address, function (status) {
               console.log('Rendering output...');
 
             }, redactions);
-            page.render(output);
-            console.log('Done. Exiting.');
-            phantom.exit();
-        }, 1000);
+            window.setTimeout(function(){
+              page.render(output);
+              console.log('Done. Exiting.');
+              phantom.exit();
+            }, 200);
+        }, 200);
     }
 });
