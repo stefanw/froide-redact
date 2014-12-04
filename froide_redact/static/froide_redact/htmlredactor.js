@@ -6,6 +6,26 @@
 
 var $ = exports.$ || window.jQuery;
 
+function getPathTo(element) {
+  if (element.id !== '') {
+    return 'id("' + element.id + '")';
+  }
+  if (element === document.body) {
+    return element.tagName;
+  }
+  var ix = 0;
+  var siblings = element.parentNode.childNodes;
+  for (var i= 0; i<siblings.length; i++) {
+    var sibling = siblings[i];
+    if (sibling === element) {
+      return getPathTo(element.parentNode) + '/' + element.tagName + '[' + (ix + 1) + ']';
+    }
+    if (sibling.nodeType === 1 && sibling.tagName === element.tagName) {
+      ix += 1;
+    }
+  }
+}
+
 var getReplacement = function(len, repl){
   repl = repl === undefined ? '!' : repl;
   var s = [];
@@ -159,15 +179,7 @@ HTMLRedactor.prototype.handleImageRedaction = function(e, image) {
   }
   console.log('image redaction', this.mouseDownImage, this.mouseDownCoordinates);
 
-  var canvas = document.createElement('canvas');
-  var img = document.createElement('img');
-  img.src = this.mouseDownImage[0].src;
-  var xratio = img.width / this.mouseDownImage[0].width;
-  var yratio = img.height / this.mouseDownImage[0].height;
-  canvas.width = img.width;
-  canvas.height = img.height;
-  var ctx = canvas.getContext('2d');
-  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  var imagePath = getPathTo(this.mouseDownImage[0]);
 
   var newOffset;
   if (image) {
@@ -192,7 +204,7 @@ HTMLRedactor.prototype.handleImageRedaction = function(e, image) {
       newOffset[1] = this.mouseDownImage[0].height;
     }
   }
-  ctx.fillStyle = '#000';
+
   var x, y, w, h;
   if (this.mouseDownCoordinates[0] < newOffset[0]) {
     x = this.mouseDownCoordinates[0];
@@ -208,8 +220,17 @@ HTMLRedactor.prototype.handleImageRedaction = function(e, image) {
     y = newOffset[1];
     h = this.mouseDownCoordinates[1] - y;
   }
-  ctx.fillRect(x * xratio, y * yratio, w * xratio, h * yratio);
-  this.mouseDownImage.attr('src', canvas.toDataURL('image/png'));
+
+  var dimensions = {
+    xpath: imagePath,
+    x: x,
+    y: y,
+    w: w,
+    h: h
+  };
+
+  this.redactions.push({type: 'image', value: dimensions});
+  this.redactor.redactImage(this.mouseDownImage[0], dimensions);
 
   this.mouseDownImage = null;
   this.mouseDownCoordinates = null;
