@@ -31,10 +31,7 @@ Then visit:
 
 ## Issues
 
-- Image redactions do not work yet.
-- Final text is somehow doubled, copying text sucks
-- Final PDF pages are not cut off quite where they should be
-- Needs testing, testing, testing
+Stil a couple, see [Issues](https://github.com/stefanw/froide-redact/issues).
 
 
 ## Credits
