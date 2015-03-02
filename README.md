@@ -22,7 +22,7 @@ Then visit:
 
 ### Using docker
 
-    docker built -t froide_redact .
+    docker build -t froide_redact .
     docker run -p 8000:8000 -i -t froide_redact
 
 Then visit:
