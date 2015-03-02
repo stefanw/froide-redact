@@ -23,11 +23,11 @@ def redact(request):
         redacted_pdf = tempfile.NamedTemporaryFile(suffix='.pdf', delete=False)
         redacted_pdf.close()
         html = False
-        if request.GET.get('html'):
+        if request.POST.get('type') == 'html':
             html = True
         apply_redactions(converted_html_path, redacted_pdf.name, redactions, html=html)
         print redacted_pdf.name
-        if request.GET.get('html'):
+        if request.POST.get('type') == 'html':
             html_path = redacted_pdf.name.replace('.pdf', '.html')
             return HttpResponse(file(html_path).read(), content_type='text/html')
         return HttpResponse(file(redacted_pdf.name).read(), content_type='application/pdf')

@@ -25,8 +25,11 @@
           <div class="row">
             <div class="btn-toolbar htmlredactor-controls col-lg-12">
               <div class="btn-group">
-                <button class="btn btn-primary" id="submit-form" data-loading-text="Redacting...">
-                  Redact!
+                <button data-type="pdf" class="submit-form btn btn-primary" type="submit" data-loading-text="Redacting...">
+                  Redact to PDF
+                </button>
+                <button data-type="html" class="submit-form btn btn-primary" type="submit" data-loading-text="Redacting...">
+                  Redact to HTML
                 </button>
               </div>
             </div>
@@ -63,21 +66,28 @@
       container: 'htmlredactor-container',
       htmlContent: '{{ contents|escapejs }}',
     });
-    $('#submit-form').prop('disabled', true);
+    $('.submit-form').prop('disabled', true);
     htmlRedactor.init().then(function(){
-      $('#submit-form').prop('disabled', false);
+      $('.submit-form').prop('disabled', false);
       $('#redaction-progress').hide()
       $('#redaction-progress .loading').hide();
       $('.htmlredactor-iframe-container').show();
-      $('#submit-form').click(function(e){
+      $('.submit-form').click(function(e){
         e.preventDefault();
-        $('#submit-form').prop('disabled', true);
+        $('.submit-form').prop('disabled', true);
         $('.htmlredactor-iframe-container').hide();
         $('#redaction-progress').show();
         var input = $('<input>').attr({
           name: 'redactions',
           value: htmlRedactor.getRedactions()
         });
+        $('#redaction-form').append(input);
+        // Attach html or pdf button
+        var type = $(this).data('type');
+        var input = document.createElement('input');
+        input.name = 'type';
+        input.value = type;
+        input.type = 'hidden';
         $('#redaction-form').append(input);
         $('#redaction-form').submit();
       });
