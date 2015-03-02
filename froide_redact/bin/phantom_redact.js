@@ -8,6 +8,7 @@ var output = system.args[2];
 // console.log(phantom.libraryPath, system.args[0], fs.absolute(system.args[0]));
 var redactions = JSON.parse(system.args[3]);
 console.log(redactions);
+var renderHtml = system.args[4] || false;
 
 page.viewportSize = { width: 600, height: 600 };
 page.paperSize = { format: 'A4', orientation: 'portrait', margin: '1cm' };
@@ -29,7 +30,7 @@ page.open(address, function (status) {
         page.injectJs(phantom.libraryPath + "/../static/rangy/lib/rangy-classapplier.js");
         page.injectJs(phantom.libraryPath + "/../static/froide_redact/redact.js");
         window.setTimeout(function () {
-            page.evaluate(function(redactions) {
+            var content = page.evaluate(function(redactions) {
               console.log('Applying redactions...');
               var css = '.pf { page-break-after : always; }';
               head = document.head || document.getElementsByTagName('head')[0];
@@ -40,9 +41,17 @@ page.open(address, function (status) {
               var redactor = new Redactor();
               redactor.applyRedactions(redactions);
               console.log('Rendering output...');
+              return document.body.parentNode.innerHTML;
 
             }, redactions);
             window.setTimeout(function(){
+              if (renderHtml) {
+                console.log('Writing HTML.');
+                htmlOutput = output.replace(/\.pdf$/, '.html');
+                content = '<!DOCTYPE html>\n' + content;
+                fs.write(htmlOutput, content, 'w');
+              }
+              console.log('Render PDF.');
               page.render(output);
               console.log('Done. Exiting.');
               phantom.exit();

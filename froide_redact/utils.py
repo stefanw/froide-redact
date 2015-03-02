@@ -57,12 +57,14 @@ def convert_to_html(pdf_file, output_file):
             return output_file
 
 
-def apply_redactions(html_file, output_file, redactions):
+def apply_redactions(html_file, output_file, redactions, html=False):
     home_path = os.path.dirname(output_file)
 
     bin_path = os.path.join(os.path.dirname(__file__), 'bin', 'phantom_redact.js')
     print bin_path
     arguments = ['phantomjs', bin_path, html_file, output_file, redactions]
+    if html:
+        arguments.append('html')
     print ' '.join(arguments)
     if call_binary(arguments, home=home_path):
         if os.path.exists(output_file):
