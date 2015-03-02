@@ -36,7 +36,7 @@ The links above open a sample pdf rendered as html.
 
 - Select parts of the text to redact that part
 - Click on links to remove the links (probably doesn't work yet)
-- Draw rectangles on images to make a redact them
+- Draw rectangles on images to redact them (a bit broken still)
 
 Click one of the redact buttons at the top and get back either HTML or PDF. HTML may work better.
 
