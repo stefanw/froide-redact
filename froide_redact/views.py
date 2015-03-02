@@ -22,6 +22,8 @@ def redact(request):
         redactions = request.POST.get('redactions')
         redacted_pdf = tempfile.NamedTemporaryFile(suffix='.pdf', delete=False)
         redacted_pdf.close()
+        if request.GET.get('html'):
+            return HttpResponse(file(converted_html_path).read(), content_type='text/html')
         apply_redactions(converted_html_path, redacted_pdf.name, redactions)
         print redacted_pdf.name
         return HttpResponse(file(redacted_pdf.name).read(), content_type='application/pdf')
