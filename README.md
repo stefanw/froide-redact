@@ -32,7 +32,7 @@ Then visit:
 
 ## Usage
 
-The links to the bottom open a sample pdf rendered as html.
+The links above open a sample pdf rendered as html.
 
 - Select parts of the text to redact that part
 - Click on links to remove the links (probably doesn't work yet)
