@@ -47,12 +47,12 @@ page.open(address, function (status) {
             window.setTimeout(function(){
               if (renderHtml) {
                 console.log('Writing HTML.');
-                htmlOutput = output.replace(/\.pdf$/, '.html');
                 content = '<!DOCTYPE html>\n' + content;
-                fs.write(htmlOutput, content, 'w');
+                fs.write(output, content, 'w');
+              } else {
+                console.log('Render PDF.');
+                page.render(output);
               }
-              console.log('Render PDF.');
-              page.render(output);
               console.log('Done. Exiting.');
               phantom.exit();
             }, 200);
