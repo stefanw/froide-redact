@@ -1,6 +1,7 @@
-from django.conf.urls import patterns
+# from django.conf.urls import url
 
+# from .views import show
 
-urlpatterns = patterns("froide_redact.views",
-    (r'^(?P<article_id>\d+)/$', 'show', {}, 'foiidea-show'),
-)
+urlpatterns = [
+    # url(r'^(?P<article_id>\d+)/$', show, name='froide_redact-show'),
+]

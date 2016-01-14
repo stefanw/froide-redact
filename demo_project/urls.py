@@ -1,8 +1,8 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
-from django.contrib import admin
-admin.autodiscover()
+from froide_redact.views import redact
 
-urlpatterns = patterns('',
-    url(r'^$', 'froide_redact.views.redact', name='froide_redact-redact'),
-)
+
+urlpatterns = [
+    url(r'^$', redact, name='froide_redact-redact'),
+]
